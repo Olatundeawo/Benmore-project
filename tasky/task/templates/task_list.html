@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mx-auto py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold"> Tasky Dashboard</h1>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded">+ Add Task</button>
+    </div>
+    <div class="flex space-x-4">
+        
+        <div class="w-1/3">
+            <h2 class="text-xl font-semibold mb-4"> In Progress</h2>
+            <div class="space-y-4" id="in_progress_tasks">
+                {% include 'fetch_card.html' with tasks=tasks.filter(status='in_progress') %}
+            </div>
+        </div>
+        
+        
+        <div class="w-1/3">
+            <h2 class="text-xl font-semibold mb-4"> Completed Tasks</h2>
+            <div class="space-y-4" id="completed_tasks">
+                {% include 'fetch_card.html' with tasks=tasks.filter(status='completed') %}
+            </div>
+        </div>
+        
+        <div class="w-1/3">
+            <h2 class="text-xl font-semibold mb-4"> Overdue</h2>
+            <div class="space-y-4" id="overdue_tasks">
+                {% include 'fetch_card.html' with tasks=tasks.filter(status='overdue') %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    function fetchTasks(status) {
+        $.ajax({
+            url: `/fetch_task/${status}/`,
+            success: function(data) {
+                $(`#${status}_tasks`).html(data);
+            }
+        });
+    }
+
+    setInterval(function() {
+        fetchTasks('in_progress');
+        fetchTasks('completed');
+        fetchTasks('overdue');
+    }, 5000);
+</script>
+
+{% endblock %}
