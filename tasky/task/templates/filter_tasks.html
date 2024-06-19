@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Create Task</h1>
+<h1>Filter Task</h1>
 
-<form method="post" >
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ form.error }}
-    <button type="submit">Save</button>
+<form id="filter-form">
+    
+    <label for="category"> Category:</label>
+    <input type="text" id="category" name="category">
+
+    <label for="due_date"> Due Date:</label>
+    <input type="text" id="due-date" name="due_date">
+
+    <label for="priority"> Priority:</label>
+    <select name="priority" id="priority">
+        <option value="">--Select Priority--</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select>
+    <button type="submit">Filter</button>
 </form>
 
 {% endblock %}
