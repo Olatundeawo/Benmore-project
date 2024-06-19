@@ -6,6 +6,12 @@
     <input name="q" type="text" placeholder="Search..." class="search">
   </form>
 
+<div>
+    
+        {%include 'filter_tasks.html' with task=task %}
+        
+</div>
+
 <div class="container mx-auto py-8">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold"> Tasky Dashboard</h1>
@@ -14,12 +20,13 @@
     <div class="flex space-x-4 taskList">
         
         
-        <div class="w-1/3">
+        <div class="w-1/3" id="task-list">
             <h2 class="text-xl font-semibold mb-4"> In Progress <span>{{progress_count}}</span></h2>
             <div class="space-y-4" id="progress_tasks">
                 
                 {% for task in progress %}
                 {% include 'fetch_task.html' with task=task %}
+                
                 
                 {% endfor %}
             </div>
@@ -48,24 +55,55 @@
     </div>
 </div>
 
-
 <script>
-    function fetchTasks(status) {
+    // Function to fetch tasks based on status, category, due date, and priority
+    function fetchTasks(status, category, dueDate, priority) {
         $.ajax({
-            url: `fetch_task/${status}`,
+            url: `fetch_task/${status}`,  // URL to fetch tasks for a specific status
+            data: {
+                category: category,  // Category filter parameter
+                due_date: dueDate,  // Due date filter parameter
+                priority: priority,  // Priority filter parameter
+            },
             success: function(data) {
-                $(`#${status}_tasks`).html(data);
-            }
+                // On successful AJAX request, update tasks container and log data
+                $(`#${status}_tasks`).html(data);  // Update HTML content with fetched tasks
+                console.log(`Tasks for ${status}:`, data);  // Log fetched tasks data to console
+            },
+            error: function(xhr, status, error) {
+                // On AJAX request error, log error details
+                console.error('Error fetching tasks:', status, error);
+            },
         });
     }
 
-    
-    setInterval(function() {
-        fetchTasks('progress');
-        fetchTasks('completed');
-        fetchTasks('overdue');
-        
-    }, 5000);
+    // Execute when the document is ready (DOM is fully loaded)
+    $(document).ready(function() {
+        // Function to fetch filtered tasks based on form input values
+        function fetchFilteredTasks() {
+            // Retrieve values from form inputs
+            var category = $('#category').val();  // Get category filter value
+            var dueDate = $('#due_date').val();  // Get due date filter value
+            var priority = $('#priority').val();  // Get priority filter value
+
+            // Fetch tasks for each status with current filter values
+            fetchTasks('progress', category, dueDate, priority);  // Fetch tasks in progress
+            fetchTasks('completed', category, dueDate, priority);  // Fetch completed tasks
+            fetchTasks('overdue', category, dueDate, priority);  // Fetch overdue tasks
+        }
+
+        // Handle form submission event for filter form
+        $('#filter-form').submit(function(event) {
+            event.preventDefault();  // Prevent default form submission behavior
+            console.log('submit');  // Log form submission event
+
+            fetchFilteredTasks();  // Call function to fetch filtered tasks
+        });
+
+        // Set interval to automatically fetch filtered tasks every 5 seconds
+        setInterval(fetchFilteredTasks, 5000);
+    });
 </script>
+
 
 {% endblock %}
