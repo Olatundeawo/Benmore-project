@@ -12,6 +12,10 @@ def task_list(request):
     completed = Task.objects.filter(status='completed')
     overdue = Task.objects.filter(status='overdue')
     query = request.GET.get('q', '')
+    category = request.GET.get('category')
+    due_date = request.GET.get('due_date')
+    priority = request.GET.get('priority')
+
     if query:
 
         tasks = Task.objects.filter(Q(description__icontains=query) | Q(title__icontains=query))
@@ -19,6 +23,13 @@ def task_list(request):
         
     else:
         tasks_data = []
+
+    if category:
+        tasks = tasks.filter(category=category)
+    if due_date:
+        tasks = tasks.filter(due_date=due_date)
+    if priority:
+        tasks = tasks.filter(priority=priority)
     
     
     context = {
@@ -28,11 +39,8 @@ def task_list(request):
         'overdue_count': overdue.count(),
         'completed': completed,
         'completed_count': completed.count(),
-        'tasks_data': tasks_data,
-        # 'search_progress': search_progress,
-        # 'search_completed': search_completed,
-        # 'search_overdue': search_overdue,
         'query': query,
+        'tasks': tasks,
     }
     return (render(request,'task_list.html', context))
 
@@ -52,31 +60,6 @@ def create_task(request):
         form = TaskForm()
        
     return (render(request, 'create_task.html', {'form':form}))
-
-
-def filter_tasks(request):
-    form = TaskFilterForm(request.GET)
-    tasks = Task.objects.all()
-    if form.is_valid():
-        query = form.cleaned_data.get('q')
-        priority = form.cleaned_data.get('priority')
-        due_date = form.cleaned_data.get('due_date')
-        category = form.cleaned_data.get('category')
-
-        filters = Q()
-        if query:
-            filters &= Q(description__icontains=query) | Q(title__icontains=query)
-        if priority:
-            filters &= Q(priority=priority)
-        if due_date:
-            filters &= Q(due_date=due_date)
-        if category:
-            filters &= Q(category__icontains=category)  # Assuming category is a CharField
-
-        tasks = Task.objects.filter(filters)
-
-    # tasks_data = list(tasks.values('id', 'title', 'description', 'status', 'priority', 'due_date', 'category'))
-    return(render(request, 'filter_tasks.html', {'form': form}))
 
 
 def edit_task(request, id):
