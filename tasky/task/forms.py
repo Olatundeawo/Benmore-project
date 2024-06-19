@@ -2,22 +2,36 @@ from django import forms
 from .models import Task
 
 class TaskForm(forms.ModelForm):
+    """
+    Form for creating and updating a Task object.
+    """
     due_date = forms.DateField(
-            widget=forms.DateInput(
-                attrs={
-                    'type': 'date'
-                }
-            )
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date'  # Use HTML5 date input type for due_date field
+            }
         )
+    )
 
     class Meta:
-        model = Task
-        fields = ['title', 'description', 'due_date', 'status', 'priority', 'assigned_to']
-
-
+        """
+        Meta class specifying the model and fields for the form.
+        """
+        model = Task  # Specify the Task model for the form
+        fields = ['title', 'description', 'category', 'due_date', 'status', 'priority', 'assigned_to']
+        # Define the fields to include in the form
 
 class TaskFilterForm(forms.Form):
-    q = forms.CharField(required=False, label='Search')
-    priority = forms.ChoiceField(choices=[('', 'Select Priority'), ('low', 'Low'), ('medium', 'Medium'), ('high', 'High')], required=False)
-    due_date =  forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
-    category = forms.CharField(required=False, label='Category')
+    """
+    Form for filtering tasks based on search query, priority, due date, and category.
+    """
+    q = forms.CharField(required=False, label='Search')  # Search query field
+    priority = forms.ChoiceField(
+        choices=[('', 'Select Priority'), ('low', 'Low'), ('medium', 'Medium'), ('high', 'High')],
+        required=False  # Priority filter field
+    )
+    due_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={'type': 'date'})  # Due date filter field with HTML5 date input type
+    )
+    category = forms.CharField(required=False, label='Category')  # Category filter field
