@@ -136,11 +136,11 @@ To include jQuery and Tailwind CSS in your HTML templates, add the following lin
 
 ## Additional Resources
 
-[Django Documentation]https://docs.djangoproject.com/en/5.0/
-[Tailwind CSS Documentation] https://tailwindcss.com/docs/installation
-[jQuery Documentation] https://jquery.com/
-[Node.js] https://nodejs.org/en
-[Python] https://www.python.org/
+[Django Documentation](https://docs.djangoproject.com/en/5.0/)
+[Tailwind CSS Documentation] (https://tailwindcss.com/docs/installation)
+[jQuery Documentation] (https://jquery.com/)
+[Node.js] (https://nodejs.org/en)
+[Python] (https://www.python.org/)
 
 ## License
 
