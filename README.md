@@ -19,26 +19,26 @@ git clone https://github.com/Olatundeawo/benmore-project.git
 cd benmore-project
 ```
 
-#2. Create a Virtual Environment
+# 2. Create a Virtual Environment
 it's a good practise to create a virtual environment to manage your project's dependencies.
 ```bash
 python -m venv venv
 source venv/bin/activate # on Windows use `venv\Scripts\activate` 
 ```
 
-#3.  Install Python Dependencies
+# 3.  Install Python Dependencies
 install the required python packages using pip.
 ``` bash
 pip install -r requirements.txt
 ```
 
-#4. Install Node.js Dependencies
+# 4. Install Node.js Dependencies
 Navigate to the directory where your Tailwind CSS configuration is located (usually in the root or static directory).
 ```bash
 npm install
 ``` 
 
-#5. Configure Tailwind CSS
+# 5. Configure Tailwind CSS
 If not already present, create a Tailwind CSS configuration file.
 ``` bash
 npx tailwindcss init
@@ -58,13 +58,13 @@ module.exports = {
 }
 ```
 
-#6. Create Django App
+# 6. Create Django App
 if you haven't already created Django app, you can do so by running:
 ```bash
 django-admin startapp your_app_name
 ```
 
-#7. Add Tailwind CSS to your Django Project
+# 7. Add Tailwind CSS to your Django Project
 Include Tailwind CSS in your Django project by creating a tailwind.css file in your static directory (e.g., static/css/tailwind.css) and importing the Tailwind directives:
 ```bash
 @tailwind base;
@@ -72,48 +72,48 @@ Include Tailwind CSS in your Django project by creating a tailwind.css file in y
 @tailwind utilities;
 ```
 
-#8. Build Tailwind CSS
+# 8. Build Tailwind CSS
 ```bash
  npx tailwindcss -i ./static/css/tailwind.css -o ./static/css/output.css --watch
 ```
 
-#9. Add jQuery to your project
+# 9. Add jQuery to your project
 add jquery to your base html
 ```bash
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 ```
 
-#10. Configure Django Settings
+# 10. Configure Django Settings
 In your Django settings (settings.py), add the static files configuration:
 ```bash
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 ```
 
-#11. Run Database Migrations
+# 11. Run Database Migrations
 Apply the initila migrations to set up your database:
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-#12. Create a Superuser
+# 12. Create a Superuser
 Create a superuser account to access the Django admin:
 ```bash
 python manage.py createsuperuser
 ```
 
-#13. Run the Development Server
+# 13. Run the Development Server
 Start the Django development server:
 ```bash
 python manage.py runserver
 ```
 
-#14. Access the Application
-14. Access the Application
+# 14. Access the Application
+ Access the Application
 Open your web browser and navigate to http://127.0.0.1:8000 to view the application. You can also access the admin interface at http://127.0.0.1:8000/admin.
 
-##Usage
+## Usage
 To include jQuery and Tailwind CSS in your HTML templates, add the following lines in your base template (base.html or similar):
 
 ```html
