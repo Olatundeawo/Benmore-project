@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Create Task</h1>
 
-<form method="post" >
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ form.error }}
-    <button type="submit">Save</button>
-</form>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg md:max-w-2xl lg:max-w-4xl">
+        <h1>Create Task</h1>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div class="space-y-4">
+                {{ form.as_p }}
+            </div>
+            <div>
+                {{ form.error }}
+            </div>
+            <div>
+                <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
 
 {% endblock %}

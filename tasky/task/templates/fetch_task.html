@@ -1,28 +1,44 @@
-{% for task in tasks %}
-
-<div class="bg-white p-4 rounded shadow">
-    <h1>
-        {{ task.priority}}
-    </h1>
-    <h1>
-        {{ task.category}}
-    </h1>
-    <h3 class="text-lg font-bold">
-        {{ task.title }}
-    </h3>
-    <p>
-        {{ task.description }}
-    </p>
-    <div class="flex justify-between items-center mt-4">
-        <span class="text-gray-500 text-sm">
-            {{ task.due_date|date:"Y-m-d" }}
-        </span>
-        <div class="flex space-x-2">
-            <button class="text-blue-500"><a href="{% url 'edit_task' task.id %}">Edit</a></button>
-            <button class="text-red-500"><a href="{% url 'delete_task' task.id %}">Delete</a></button>
+<div class="m-3.5 grid">
+    <!-- Task Information Section -->
+    <div class="capitalize grid grid-cols-1 md:grid-cols-3 gap-4 mb-3 container max-w-full">
+        <!-- Priority -->
+        <div class="bg-red-200 rounded-md shadow-md overflow-hidden flex items-center justify-center">
+            <span class="block p-2 text-blue-500 md:text-gray-500">
+                {{ task.priority }}
+            </span>
+        </div>
+        <!-- Due Date -->
+        <div class="bg-gray-200 rounded-md shadow-md overflow-hidden flex items-center justify-center">
+            <span class="block p-2 text-yellow-500 text-sm">
+                {{ task.due_date|date:"Y-m-d" }}
+            </span>
+        </div>
+        <!-- Category -->
+        <div class="bg-blue-200 rounded-md shadow-md overflow-hidden flex items-center justify-center">
+            <span class="block p-2 text-blue-500 md:text-gray-500">
+                {{ task.category }}
+            </span>
         </div>
     </div>
+
+    <!-- Task Details Section -->
+    <div class="max-w-full md:max-w-lg bg-gray-200 rounded shadow mb-6 flex">
+        <div class="p-4 flex flex-col justify-between">
+            <div>
+                <h3 class="text-lg font-bold">
+                    {{ task.title }}
+                </h3>
+                <p class="mt-2">
+                    {{ task.description }}
+                </p>
+            </div>
+            <div class="flex justify-between items-center mt-4">
+                <div class="flex space-x-2">
+                    <button class="text-blue-500"><a href="{% url 'edit_task' task.id %}">Edit</a></button>
+                    <button class="text-red-500"><a href="{% url 'delete_task' task.id %}">Delete</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
-
-
-{% endfor %}

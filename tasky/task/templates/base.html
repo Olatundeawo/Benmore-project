@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tasky</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'src/output.css' %}"> -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .task-list { display: none; }
         .search-results { display: none; }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-blue-500 p-4 rounded-md">
 
     {% block content %}
     {% endblock %}

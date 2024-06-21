@@ -20,10 +20,7 @@ def task_list(request):
 
     # Get filter parameters from the request
     query = request.GET.get('q', '')  # Search query
-    category = request.GET.get('category')  # Task category
-    due_date = request.GET.get('due_date')  # Due date
-    priority = request.GET.get('priority')  # Task priority
-
+    
     # Filter tasks by search query if provided
     if query:
         tasks = Task.objects.filter(Q(description__icontains=query) | Q(title__icontains=query))
@@ -31,13 +28,7 @@ def task_list(request):
     else:
         tasks_data = []
 
-    # Apply additional filters if provided
-    if category:
-        tasks = tasks.filter(category=category)
-    if due_date:
-        tasks = tasks.filter(due_date=due_date)
-    if priority:
-        tasks = tasks.filter(priority=priority)
+    
 
     # Prepare context data for the template
     context = {

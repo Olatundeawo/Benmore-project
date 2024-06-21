@@ -15,14 +15,19 @@ class Task(models.Model):
 
     # Choices for the priority of the task
     PRIORITY_CHOICES = [
-        ('low', 'Low'),
-        ('medium', 'Medium'),
-        ('high', 'High'),
+        ('Low', 'Low'),
+        ('Medium', 'Medium'),
+        ('High', 'High'),
+    ]
+
+    CATEGORY_CHOICES = [
+        ('UX Design', 'UX Design'),
+        ('Development', 'Developement'),
     ]
 
     # Fields of the Task model
     title = models.CharField(max_length=255)  # Title of the task
-    category = models.CharField(max_length=255, blank=True, null=True)  # Category of the task
+    category = models.CharField(max_length=12, choices=CATEGORY_CHOICES, default='developement')  # Category of the task
     description = models.TextField(blank=True, null=True)  # Description of the task
     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp when the task was created
     updated_at = models.DateTimeField(auto_now=True)  # Timestamp when the task was last updated
